@@ -15,7 +15,6 @@ export default function App() {
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [mode, setMode] = useState<'work' | 'break'>('work');
   
-  const [completedCount, setCompletedCount] = useState<number>(0);
   const [myCollection, setMyCollection] = useState<number[]>([]);
 
   useEffect(() => {
@@ -27,7 +26,6 @@ export default function App() {
     } else if (timeLeft === 0 && isRunning) {
       setIsRunning(false);
       if (mode === 'work') {
-        setCompletedCount((prev) => prev + 1);
         if (myCollection.length < COLLECTION_ITEMS.length) {
           const nextId = myCollection.length + 1;
           setMyCollection([...myCollection, nextId]);
@@ -56,11 +54,8 @@ export default function App() {
     setTimeLeft(mode === 'work' ? 25 * 60 : 5 * 60);
   };
 
- 
-
   return (
     <div style={styles.container}>
-      {/* 画面幅によってスタイルを切り替えるためのインラインメディアクエリ風クラス */}
       <style>{`
         @media (max-width: 768px) {
           .responsive-layout {
@@ -79,7 +74,6 @@ export default function App() {
         <p style={styles.subtitle}>集中して、自分だけのお部屋にアイテムを集めよう</p>
       </header>
 
-      {/* クラス名に .responsive-layout を付与 */}
       <div className="responsive-layout" style={styles.mainLayout}>
         {/* 左側：タイマーエリア */}
         <section className="responsive-card" style={styles.timerCard}>
@@ -100,8 +94,6 @@ export default function App() {
             </button>
             <button onClick={resetTimer} style={styles.subButton}>リセット</button>
           </div>
-
-         
         </section>
 
         {/* 右側：コレクションエリア */}
@@ -225,7 +217,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: '0.9rem',
     cursor: 'pointer',
   },
-  
   roomCard: {
     backgroundColor: '#2a2a35',
     borderRadius: '16px',
